@@ -29,7 +29,7 @@ const register = async (req, res) => {
       fullName: fullName,
       image: image,
     });
-    let token = jwt.sign({ _id: user._id }, "SECRETEKEY");
+    let token = jwt.sign({ _id: user._id }, process.env.SECRET_KEY);
     user._doc.token = token;
     return res.status(201).json({
       success: true,
@@ -63,7 +63,7 @@ const login = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Password is worng" });
     }
-    var token = jwt.sign({ _id: data._id }, "SECRETEKEY");
+    var token = jwt.sign({ _id: data._id }, process.env.SECRET_KEY);
     data._doc.token = token;
     return res.status(200).json({
       success: true,
